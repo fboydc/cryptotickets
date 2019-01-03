@@ -27,7 +27,7 @@ contract Cryptotickets is TradeableERC721Token {
     *returns the URI for the related token metadata  (string)
     ************************************************************/
     function tokenURI(uint256 _tokenId, uint256 _eventId) public view returns (string){
-        return Strings.strConcat(baseTokenURI(), "event=", Strings.uint2str(_tokenId), "ticket", Strings.uint2str(_eventId));
+        return Strings.strConcat(baseTokenURI(), "event=", Strings.uint2str(_tokenId), "&ticket=", Strings.uint2str(_eventId));
     }
 
 
@@ -38,7 +38,7 @@ contract Cryptotickets is TradeableERC721Token {
     *returns the base URI for the API endpoint (string)
     ************************************************************/
     function baseTokenURI() public view returns(string) {
-        return "http://www.example.com/";
+        return "http://www.example.com/?";
     }
 
 
