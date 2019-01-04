@@ -31,14 +31,14 @@
     "absolutePath": "/K/code/cryptotickets/backend/contracts/ProxyRegistry.sol",
     "exportedSymbols": {
       "ProxyRegistry": [
-        129
+        131
       ]
     },
-    "id": 130,
+    "id": 132,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 123,
+        "id": 125,
         "literals": [
           "solidity",
           "^",
@@ -51,10 +51,10 @@
       {
         "absolutePath": "/K/code/cryptotickets/backend/contracts/OwnableDelegateProxy.sol",
         "file": "./OwnableDelegateProxy.sol",
-        "id": 124,
+        "id": 126,
         "nodeType": "ImportDirective",
-        "scope": 130,
-        "sourceUnit": 122,
+        "scope": 132,
+        "sourceUnit": 124,
         "src": "26:36:3",
         "symbolAliases": [],
         "unitAlias": ""
@@ -65,30 +65,30 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 129,
+        "id": 131,
         "linearizedBaseContracts": [
-          129
+          131
         ],
         "name": "ProxyRegistry",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 128,
+            "id": 130,
             "name": "proxies",
             "nodeType": "VariableDeclaration",
-            "scope": 129,
+            "scope": 131,
             "src": "96:55:3",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_address_$_t_contract$_OwnableDelegateProxy_$121_$",
+              "typeIdentifier": "t_mapping$_t_address_$_t_contract$_OwnableDelegateProxy_$123_$",
               "typeString": "mapping(address => contract OwnableDelegateProxy)"
             },
             "typeName": {
-              "id": 127,
+              "id": 129,
               "keyType": {
-                "id": 125,
+                "id": 127,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "104:7:3",
@@ -100,18 +100,18 @@
               "nodeType": "Mapping",
               "src": "96:40:3",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_address_$_t_contract$_OwnableDelegateProxy_$121_$",
+                "typeIdentifier": "t_mapping$_t_address_$_t_contract$_OwnableDelegateProxy_$123_$",
                 "typeString": "mapping(address => contract OwnableDelegateProxy)"
               },
               "valueType": {
                 "contractScope": null,
-                "id": 126,
+                "id": 128,
                 "name": "OwnableDelegateProxy",
                 "nodeType": "UserDefinedTypeName",
-                "referencedDeclaration": 121,
+                "referencedDeclaration": 123,
                 "src": "115:20:3",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_contract$_OwnableDelegateProxy_$121",
+                  "typeIdentifier": "t_contract$_OwnableDelegateProxy_$123",
                   "typeString": "contract OwnableDelegateProxy"
                 }
               }
@@ -120,7 +120,7 @@
             "visibility": "public"
           }
         ],
-        "scope": 130,
+        "scope": 132,
         "src": "66:89:3"
       }
     ],
@@ -130,14 +130,14 @@
     "absolutePath": "/K/code/cryptotickets/backend/contracts/ProxyRegistry.sol",
     "exportedSymbols": {
       "ProxyRegistry": [
-        129
+        131
       ]
     },
-    "id": 130,
+    "id": 132,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 123,
+        "id": 125,
         "literals": [
           "solidity",
           "^",
@@ -150,10 +150,10 @@
       {
         "absolutePath": "/K/code/cryptotickets/backend/contracts/OwnableDelegateProxy.sol",
         "file": "./OwnableDelegateProxy.sol",
-        "id": 124,
+        "id": 126,
         "nodeType": "ImportDirective",
-        "scope": 130,
-        "sourceUnit": 122,
+        "scope": 132,
+        "sourceUnit": 124,
         "src": "26:36:3",
         "symbolAliases": [],
         "unitAlias": ""
@@ -164,30 +164,30 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 129,
+        "id": 131,
         "linearizedBaseContracts": [
-          129
+          131
         ],
         "name": "ProxyRegistry",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 128,
+            "id": 130,
             "name": "proxies",
             "nodeType": "VariableDeclaration",
-            "scope": 129,
+            "scope": 131,
             "src": "96:55:3",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_address_$_t_contract$_OwnableDelegateProxy_$121_$",
+              "typeIdentifier": "t_mapping$_t_address_$_t_contract$_OwnableDelegateProxy_$123_$",
               "typeString": "mapping(address => contract OwnableDelegateProxy)"
             },
             "typeName": {
-              "id": 127,
+              "id": 129,
               "keyType": {
-                "id": 125,
+                "id": 127,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "104:7:3",
@@ -199,18 +199,18 @@
               "nodeType": "Mapping",
               "src": "96:40:3",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_address_$_t_contract$_OwnableDelegateProxy_$121_$",
+                "typeIdentifier": "t_mapping$_t_address_$_t_contract$_OwnableDelegateProxy_$123_$",
                 "typeString": "mapping(address => contract OwnableDelegateProxy)"
               },
               "valueType": {
                 "contractScope": null,
-                "id": 126,
+                "id": 128,
                 "name": "OwnableDelegateProxy",
                 "nodeType": "UserDefinedTypeName",
-                "referencedDeclaration": 121,
+                "referencedDeclaration": 123,
                 "src": "115:20:3",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_contract$_OwnableDelegateProxy_$121",
+                  "typeIdentifier": "t_contract$_OwnableDelegateProxy_$123",
                   "typeString": "contract OwnableDelegateProxy"
                 }
               }
@@ -219,7 +219,7 @@
             "visibility": "public"
           }
         ],
-        "scope": 130,
+        "scope": 132,
         "src": "66:89:3"
       }
     ],
@@ -231,7 +231,7 @@
   },
   "networks": {},
   "schemaVersion": "3.0.0",
-  "updatedAt": "2019-01-03T17:24:22.018Z",
+  "updatedAt": "2019-01-04T13:14:28.734Z",
   "devdoc": {
     "methods": {}
   },

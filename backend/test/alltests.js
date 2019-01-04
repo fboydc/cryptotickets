@@ -22,10 +22,7 @@ contract("Cryptotickets", async accounts=>{
             assert.equal(await instance.ownerOf(1), owner_2);
         })
 
-        it("should be able to get NFT metadata URI", async()=>{
-            const metadataURI = await instance.tokenURI(1, 1);
-            assert.equal(metadataURI, "http://www.example.com/?event=1&ticket=1");
-        })
+       
 
         
     })
@@ -41,11 +38,9 @@ contract("Cryptotickets", async accounts=>{
 
 
         it("should be able to get NFT metadata URI", async()=>{
-            const metadataURI = await instance.tokenURI(1, 1);
-            assert.equal(metadataURI, "http://www.example.com/?event=1&ticket=1");
+            const metadataURI = await instance.tokenURI(1, 2);
+            assert.equal(metadataURI, "https://nuefwqsdv3.execute-api.us-east-1.amazonaws.com/testing/cryptotickets/{proxy+}/?event=1&ticket=2");
         })
-
-
 
     });
 })

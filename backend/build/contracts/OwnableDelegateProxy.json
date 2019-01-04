@@ -11,14 +11,14 @@
     "absolutePath": "/K/code/cryptotickets/backend/contracts/OwnableDelegateProxy.sol",
     "exportedSymbols": {
       "OwnableDelegateProxy": [
-        121
+        123
       ]
     },
-    "id": 122,
+    "id": 124,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 120,
+        "id": 122,
         "literals": [
           "solidity",
           "^",
@@ -34,14 +34,14 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 121,
+        "id": 123,
         "linearizedBaseContracts": [
-          121
+          123
         ],
         "name": "OwnableDelegateProxy",
         "nodeType": "ContractDefinition",
         "nodes": [],
-        "scope": 122,
+        "scope": 124,
         "src": "28:40:2"
       }
     ],
@@ -51,14 +51,14 @@
     "absolutePath": "/K/code/cryptotickets/backend/contracts/OwnableDelegateProxy.sol",
     "exportedSymbols": {
       "OwnableDelegateProxy": [
-        121
+        123
       ]
     },
-    "id": 122,
+    "id": 124,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 120,
+        "id": 122,
         "literals": [
           "solidity",
           "^",
@@ -74,14 +74,14 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 121,
+        "id": 123,
         "linearizedBaseContracts": [
-          121
+          123
         ],
         "name": "OwnableDelegateProxy",
         "nodeType": "ContractDefinition",
         "nodes": [],
-        "scope": 122,
+        "scope": 124,
         "src": "28:40:2"
       }
     ],
@@ -93,7 +93,7 @@
   },
   "networks": {},
   "schemaVersion": "3.0.0",
-  "updatedAt": "2019-01-03T17:24:22.019Z",
+  "updatedAt": "2019-01-04T13:14:28.734Z",
   "devdoc": {
     "methods": {}
   },
