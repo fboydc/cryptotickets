@@ -4,6 +4,7 @@ import "../node_modules/zeppelin-solidity/contracts/ownership/Ownable.sol";
 import "./Factory.sol";
 import "./Cryptotickets.sol";
 import "./Strings.sol";
+import "./ProxyRegistry.sol";
 
 contract TicketsFactory is Factory, Ownable {
     using Strings for string;
@@ -49,14 +50,14 @@ contract TicketsFactory is Factory, Ownable {
     function mint(uint256 _optionId, address _toAddress) public {
         // Must be sent from the owner proxy or owner.
         ProxyRegistry proxyRegistry = ProxyRegistry(proxyRegistryAddress);
-        assert(proxyRegistry.proxies(owner) == msg.sender);
-        //assert(proxyRegistry.proxies(owner) == msg.sender || owner == msg.sender);
-        /*require(canMint(_optionId));
-   
+        
+        assert(proxyRegistry.proxies(owner) == msg.sender || owner == msg.sender);
+        require(canMint(_optionId));
+    
         Cryptotickets cryptoticket = Cryptotickets(nftAddress);
         if (_optionId == SINGLE_TICKETS_OPTION) {
             cryptoticket.mintTo(_toAddress);
-        } else if (_optionId == MULTIPLE_TICKETS_OPTION) {
+        } /*else if (_optionId == MULTIPLE_TICKETS_OPTION) {
             for (uint256 i = 0; i < NUM_TICKETS_IN_MULTIPLE_TICKETS_OPTION; i++) {
                 cryptoticket.mintTo(_toAddress);
             }
