@@ -57,11 +57,11 @@ contract TicketsFactory is Factory, Ownable {
         Cryptotickets cryptoticket = Cryptotickets(nftAddress);
         if (_optionId == SINGLE_TICKETS_OPTION) {
             cryptoticket.mintTo(_toAddress);
-        } /*else if (_optionId == MULTIPLE_TICKETS_OPTION) {
+        } else if (_optionId == MULTIPLE_TICKETS_OPTION) {
             for (uint256 i = 0; i < NUM_TICKETS_IN_MULTIPLE_TICKETS_OPTION; i++) {
                 cryptoticket.mintTo(_toAddress);
             }
-        } */
+        } 
     }
 
     function canMint(uint256 _optionId) public view returns (bool) {

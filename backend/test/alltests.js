@@ -1,8 +1,10 @@
 
+
+const ProxyRegistry = artifacts.require("ProxyRegistry");
 const Cryptotickets = artifacts.require("Cryptotickets");
 const TicketsFactory = artifacts.require("TicketsFactory");
 
-contract("Cryptotickets", async accounts=>{
+/*contract("Cryptotickets", async accounts=>{
     const owner_1 = accounts[0];
     const owner_2 = accounts[1];
     describe("buying and selling tickets", ()=>{
@@ -29,34 +31,44 @@ contract("Cryptotickets", async accounts=>{
     })
 
 
-})
+})*/
 
 contract("TicketsFactory", async accounts=>{
 
     const owner_1 = accounts[0];
     const owner_2 = accounts[1];
+    const owner_3 = accounts[2];
+    const owner_4 = accounts[3];
+    const owner_5 = accounts[5];
+
+    let Pinstance;
     let Cinstance;
     let TFinstance;
 
     beforeEach(async()=>{
+        Pinstance = await ProxyRegistry.deployed();
         Cinstance = await Cryptotickets.deployed();
         TFinstance = await TicketsFactory.deployed();
         
     })
-    it("should be able to mint a ticket", async()=>{
+    it("should be able to transfer ownership to factory contract", async()=>{
         //const value = await TFinstance.getnftAddress();
-        const owner = await TFinstance.owner();
-        const proxyRegistryOwner = await TFinstance.mint(0, owner_2, {from: owner_1});
-        //await TFinstance.mint(0, owner_2, {from: owner_1});
-
-        console.log("owner", owner);
-        console.log("first", owner_1);
+        //const owner = await TFinstance.owner();
+        await Cinstance.transferOwnership(TFinstance.address);
+        assert.equal(await Cinstance.owner(), TFinstance.address);
         
-       // assert(await TFinstance.ownerOf(1), owner_2);
-        //console.log("address", value);
-        //console.log("owner", owner);
-        //console.log("first account", owner_1);
-        //await TFinstance.mint(0, owner_2, {from: owner_1});
-       // assert.equal(await instance.ownerOf(1), owner_2);
+
     });
+
+    it("should be able to mint many tickets", async()=>{
+        await TFinstance.mint(0, owner_2);
+        assert.equal(await Cinstance.ownerOf(1), owner_2);
+       await TFinstance.mint(0, owner_3);
+        assert.equal(await Cinstance.ownerOf(2), owner_3);
+        await TFinstance.mint(0, owner_4);
+        assert.equal(await Cinstance.ownerOf(3), owner_4);
+        await TFinstance.mint(0, owner_5);
+        assert.equal(await Cinstance.ownerOf(4), owner_5);
+        
+    })
 });
