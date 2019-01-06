@@ -9,7 +9,7 @@ const MNEMONIC = "vintage evoke frost two apology bachelor steak year minimum of
 const INFURA_KEY = "e5c098f7442a419b86124b81722e406e"
 const FACTORY_CONTRACT_ADDRESS = "0x99d804308ead004888beca66bc0798850fb238b8"
 const OWNER_ADDRESS = "0xf19797d8520F42364925407c41D2Aa89979d0aDb"
-const NETWORK = "Rinkeby"
+const NETWORK = "RINKssEBY"
 const API_KEY = "15705f90719a4ff6b66d49ea481b6b57"
 const DUTCH_AUCTION_OPTION_ID = "1";
 const DUTCH_AUCTION_START_AMOUNT = 100;
@@ -49,15 +49,17 @@ async function main() {
 
     // Example: many fixed price auctions.
     console.log("Creating fixed price auctions...")
-    const fixedSellOrders = await seaport.createFactorySellOrders({
+    /*const fixedSellOrders = await*/ seaport.createFactorySellOrders({
         assetId: FIXED_PRICE_OPTION_ID,
         factoryAddress: FACTORY_CONTRACT_ADDRESS,
         accountAddress: OWNER_ADDRESS,
         startAmount: FIXED_PRICE,
         numberOfOrders: NUM_FIXED_PRICE_AUCTIONS
+    }).then((response)=>{
+        console.log("response", response);
     })
-    console.log(`Successfully made ${fixedSellOrders.length} fixed-price sell orders! ${fixedSellOrders[0].asset.openseaLink}\n`)
-
+   // console.log(`Successfully made ${fixedSellOrders.length} fixed-price sell orders! ${fixedSellOrders[0].asset.openseaLink}\n`)
+    /*
     // Example: many declining Dutch auction.
     console.log("Creating dutch auctions...")
     // Expire one day from now
@@ -73,7 +75,7 @@ async function main() {
     })
     console.log(`Successfully made ${dutchSellOrders.length} Dutch-auction sell orders! ${dutchSellOrders[0].asset.openseaLink}\n`)
 
-    // TODO: Incremental prices example.
+    // TODO: Incremental prices example.*/
 }
 
 main()
