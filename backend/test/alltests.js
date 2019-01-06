@@ -4,7 +4,7 @@ const ProxyRegistry = artifacts.require("ProxyRegistry");
 const Cryptotickets = artifacts.require("Cryptotickets");
 const TicketsFactory = artifacts.require("TicketsFactory");
 
-/*contract("Cryptotickets", async accounts=>{
+contract("Cryptotickets", async accounts=>{
     const owner_1 = accounts[0];
     const owner_2 = accounts[1];
     describe("buying and selling tickets", ()=>{
@@ -30,8 +30,10 @@ const TicketsFactory = artifacts.require("TicketsFactory");
         
     })
 
+    
 
-})*/
+
+});
 
 contract("TicketsFactory", async accounts=>{
 
@@ -70,5 +72,11 @@ contract("TicketsFactory", async accounts=>{
         await TFinstance.mint(0, owner_5);
         assert.equal(await Cinstance.ownerOf(4), owner_5);
         
+    })
+
+
+    it("should get correct metadata", async()=>{
+       const uri = await TFinstance.tokenURI(0);
+       assert.equal(uri, "https://nuefwqsdv3.execute-api.us-east-1.amazonaws.com/testing/cryptotickets/234252-tt-45253/0");
     })
 });

@@ -11,6 +11,7 @@ contract TicketsFactory is Factory, Ownable {
 
     address public proxyRegistryAddress;
     address public nftAddress;
+    string public eventuuid;
     string public baseURI = "https://nuefwqsdv3.execute-api.us-east-1.amazonaws.com/testing/cryptotickets/";
 
   /**
@@ -21,14 +22,15 @@ contract TicketsFactory is Factory, Ownable {
   /**
    * Three different options for minting Creatures (basic, premium, and gold).
    */
-    uint256 NUM_OPTIONS = 3;
+    uint256 NUM_OPTIONS = 2;
     uint256 SINGLE_TICKETS_OPTION = 0;
     uint256 MULTIPLE_TICKETS_OPTION = 1;
     uint256 NUM_TICKETS_IN_MULTIPLE_TICKETS_OPTION = 4;
 
-    constructor(address _proxyRegistryAddress, address _nftAddress) public {
+    constructor(address _proxyRegistryAddress, address _nftAddress, string _eventuuid) public {
         proxyRegistryAddress = _proxyRegistryAddress;
         nftAddress = _nftAddress;
+        eventuuid = _eventuuid;
     }
 
     function name() external view returns (string) {
@@ -55,6 +57,7 @@ contract TicketsFactory is Factory, Ownable {
         require(canMint(_optionId));
     
         Cryptotickets cryptoticket = Cryptotickets(nftAddress);
+        
         if (_optionId == SINGLE_TICKETS_OPTION) {
             cryptoticket.mintTo(_toAddress);
         } else if (_optionId == MULTIPLE_TICKETS_OPTION) {
@@ -72,7 +75,8 @@ contract TicketsFactory is Factory, Ownable {
         Cryptotickets cryptoticket = Cryptotickets(nftAddress);
         uint256 ticketSupply = cryptoticket.totalSupply();
 
-        uint256 numItemsAllocated = 0;
+        uint256 numItemsAllocated;
+        
         if (_optionId == SINGLE_TICKETS_OPTION) {
             numItemsAllocated = 1;
         } else if (_optionId == MULTIPLE_TICKETS_OPTION) {
@@ -84,6 +88,8 @@ contract TicketsFactory is Factory, Ownable {
     function tokenURI(uint256 _optionId) public view returns (string) {
         return Strings.strConcat(
             baseURI,
+            eventuuid,
+            "/",
             Strings.uint2str(_optionId)
         );
     }
