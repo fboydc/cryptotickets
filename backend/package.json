@@ -1,22 +1,42 @@
 {
-  "name": "cryptotickets",
+  "name": "erc721-starter-contracts",
   "version": "1.0.0",
-  "description": "",
-  "main": "truffle-config.js",
-  "directories": {
-    "test": "test"
-  },
+  "description": "Starter contracts for an ERC721 project.",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ProjectOpenSea/erc721-starter-contracts.git"
+  },
+  "author": "devin.finzer@opensea.io",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ProjectOpenSea/erc721-starter-contracts/issues"
+  },
+  "homepage": "https://github.com/ProjectOpenSea/erc721-starter-contracts#readme",
   "dependencies": {
-    "@0x/subproviders": "^2.1.8",
-    "opensea-js": "^0.4.4",
-    "truffle-hdwallet-provider": "^1.0.2",
-    "web3": "^1.0.0-beta.37",
-    "zeppelin-solidity": "^1.12.0"
+    "@0x/subproviders": "^2.1.4",
+    "chai-as-promised": "^7.1.1",
+    "chai-bignumber": "^2.0.2",
+    "debug": "3.0.1",
+    "eth-gas-reporter": "^0.1.12",
+    "ethereumjs-abi": "^0.6.5",
+    "keccak": "^1.4.0",
+    "opensea-js": "latest",
+    "openzeppelin-solidity": "^1.12.0",
+    "sha256": "^0.2.0",
+    "sha3": "1.2.0",
+    "solc": "^0.4.24",
+    "truffle": "^4.1.14",
+    "truffle-flattener": "^1.2.9",
+    "truffle-hdwallet-provider": "^0.0.7-beta.0",
+    "web3": "1.0.0-beta.34",
+    "web3-provider-engine": "^14.1.0"
+  },
+  "engines": {
+    "node": "8.11.x",
+    "npm": "5.6.x"
   }
 }
