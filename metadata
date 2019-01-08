@@ -1,1 +1,2 @@
-contract address="0xbBf9317DfD7Ac54a830D850eA4605Dc54b1ed791"
+Cryptotickets:address = "0xc7303f8a84ceb89157beab40476fcc91d6aa03d0"
+TicketsFactory:address = "0xc7303f8a84ceb89157beab40476fcc91d6aa03d0"

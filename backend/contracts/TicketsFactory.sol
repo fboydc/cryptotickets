@@ -11,9 +11,14 @@ contract TicketsFactory is Factory, Ownable {
 
     address public proxyRegistryAddress;
     address public nftAddress;
-    string public eventuuid;
     string public baseURI = "https://nuefwqsdv3.execute-api.us-east-1.amazonaws.com/testing/cryptotickets/";
 
+    struct Event{
+        string id;
+        uint256 tickets_supply;
+    }
+
+    Event[] events;
   /**
    * Enforce the existence of only 100 OpenSea creatures.
    */
@@ -27,10 +32,10 @@ contract TicketsFactory is Factory, Ownable {
     uint256 MULTIPLE_TICKETS_OPTION = 1;
     uint256 NUM_TICKETS_IN_MULTIPLE_TICKETS_OPTION = 4;
 
-    constructor(address _proxyRegistryAddress, address _nftAddress, string _eventuuid) public {
+
+    constructor(address _proxyRegistryAddress, address _nftAddress) public {
         proxyRegistryAddress = _proxyRegistryAddress;
         nftAddress = _nftAddress;
-        eventuuid = _eventuuid;
     }
 
     function name() external view returns (string) {
@@ -48,6 +53,8 @@ contract TicketsFactory is Factory, Ownable {
     function numOptions() public view returns (uint256) {
         return NUM_OPTIONS;
     }
+
+   
   
     function mint(uint256 _optionId, address _toAddress) public {
         // Must be sent from the owner proxy or owner.
@@ -68,6 +75,8 @@ contract TicketsFactory is Factory, Ownable {
     }
 
     function canMint(uint256 _optionId) public view returns (bool) {
+
+        Event event = events[_optionId];
         if (_optionId >= NUM_OPTIONS) {
             return false;
         }
@@ -88,10 +97,13 @@ contract TicketsFactory is Factory, Ownable {
     function tokenURI(uint256 _optionId) public view returns (string) {
         return Strings.strConcat(
             baseURI,
-            eventuuid,
             "/",
             Strings.uint2str(_optionId)
         );
+    }
+
+    function createEvent(string _id, uint256 _tickets_supply) public {
+        events.push(Event(_id, _tickets_supply));
     }
 
   /**
