@@ -15,22 +15,22 @@ contract TicketsFactory is Factory, Ownable {
 
     struct Event{
         string id;
-        uint256 tickets_supply;
+        bool exists;
     }
 
     Event[] events;
   /**
-   * Enforce the existence of only 100 OpenSea creatures.
+   * Enforce the existence of only 100 OpenSea Cryptotickets.
    */
     uint256 TICKETS_SUPPLY = 100;
 
   /**
    * Three different options for minting Creatures (basic, premium, and gold).
    */
-    uint256 NUM_OPTIONS = 2;
-    uint256 SINGLE_TICKETS_OPTION = 0;
+    uint256 NUM_OPTIONS = events.length;
+    /*uint256 SINGLE_TICKETS_OPTION = 0;
     uint256 MULTIPLE_TICKETS_OPTION = 1;
-    uint256 NUM_TICKETS_IN_MULTIPLE_TICKETS_OPTION = 4;
+    uint256 NUM_TICKETS_IN_MULTIPLE_TICKETS_OPTION = 4;*/
 
 
     constructor(address _proxyRegistryAddress, address _nftAddress) public {
@@ -64,46 +64,44 @@ contract TicketsFactory is Factory, Ownable {
         require(canMint(_optionId));
     
         Cryptotickets cryptoticket = Cryptotickets(nftAddress);
-        
-        if (_optionId == SINGLE_TICKETS_OPTION) {
-            cryptoticket.mintTo(_toAddress);
-        } else if (_optionId == MULTIPLE_TICKETS_OPTION) {
-            for (uint256 i = 0; i < NUM_TICKETS_IN_MULTIPLE_TICKETS_OPTION; i++) {
-                cryptoticket.mintTo(_toAddress);
-            }
-        } 
+
+        cryptoticket.mintTo(_toAddress);
     }
 
     function canMint(uint256 _optionId) public view returns (bool) {
 
-        Event event = events[_optionId];
-        if (_optionId >= NUM_OPTIONS) {
+       /* if (_optionId >= NUM_OPTIONS) {
+            return false;
+        }*/
+        if(!events[_optionId].exists){
             return false;
         }
 
         Cryptotickets cryptoticket = Cryptotickets(nftAddress);
         uint256 ticketSupply = cryptoticket.totalSupply();
-
-        uint256 numItemsAllocated;
-        
-        if (_optionId == SINGLE_TICKETS_OPTION) {
-            numItemsAllocated = 1;
-        } else if (_optionId == MULTIPLE_TICKETS_OPTION) {
-            numItemsAllocated = NUM_TICKETS_IN_MULTIPLE_TICKETS_OPTION;
-        } 
+        uint256 numItemsAllocated = 1;
         return ticketSupply < (TICKETS_SUPPLY - numItemsAllocated);
     }
   
     function tokenURI(uint256 _optionId) public view returns (string) {
         return Strings.strConcat(
             baseURI,
-            "/",
             Strings.uint2str(_optionId)
         );
     }
 
-    function createEvent(string _id, uint256 _tickets_supply) public {
-        events.push(Event(_id, _tickets_supply));
+    function createEvent(string _id) public {
+        events.push(Event(_id, true));
+    }
+
+    function getEvent(string _id) view public returns(string){
+        string memory evt = "none";
+        for(uint i = 0; i < events.length; i++){
+            if(keccak256(events[i].id) == keccak256(_id)){
+                evt = events[i].id;
+            }
+        }
+        return evt;
     }
 
   /**

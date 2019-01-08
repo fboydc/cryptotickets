@@ -15,7 +15,7 @@ contract("Cryptotickets", async accounts=>{
             instance = await Cryptotickets.deployed(); 
         })
 
-        it("should be able to mint a ticker", async()=>{
+        it("should be able to mint a ticket", async()=>{
             await instance.mintTo(owner_1);
             assert.equal(await instance.ownerOf(1), owner_1);
         })
@@ -62,6 +62,13 @@ contract("TicketsFactory", async accounts=>{
 
     });
 
+    it("should be able to create an event", async()=>{
+        await TFinstance.createEvent("reqwr3-12341r-werw2");
+        const event = await TFinstance.getEvent("reqwr3-12341r-werw2");
+
+        assert.equal(event, "reqwr3-12341r-werw2");
+    })
+    
     it("should be able to mint many tickets", async()=>{
         await TFinstance.mint(0, owner_2);
         assert.equal(await Cinstance.ownerOf(1), owner_2);
@@ -71,12 +78,20 @@ contract("TicketsFactory", async accounts=>{
         assert.equal(await Cinstance.ownerOf(3), owner_4);
         await TFinstance.mint(0, owner_5);
         assert.equal(await Cinstance.ownerOf(4), owner_5);
-        
+        await TFinstance.createEvent("oiheriwer1-124145-qsfs");
+        await TFinstance.mint(1, owner_2);
+        assert.equal(await Cinstance.ownerOf(5), owner_2);
+    })
+
+    it("should be able to get metadata URI", async()=>{
+        const URI = await TFinstance.tokenURI(0);
+        assert.equal(URI, "https://nuefwqsdv3.execute-api.us-east-1.amazonaws.com/testing/cryptotickets/0");
     })
 
 
+    /*
     it("should get correct metadata", async()=>{
        const uri = await TFinstance.tokenURI(0);
        assert.equal(uri, "https://nuefwqsdv3.execute-api.us-east-1.amazonaws.com/testing/cryptotickets/234252-tt-45253/0");
-    })
+    })*/
 });

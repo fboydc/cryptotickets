@@ -8,7 +8,7 @@ module.exports = function(deployer, network, accounts){
 
     deployer.deploy(ProxyRegistry).then(()=>{
        return deployer.deploy(Cryptotickets, ProxyRegistry.address).then(()=>{
-            return deployer.deploy(TicketsFactory, ProxyRegistry.address, Cryptotickets.address, "234252-tt-45253");
+            return deployer.deploy(TicketsFactory, ProxyRegistry.address, Cryptotickets.address);
         })
     })
    /*.then(async()=>{

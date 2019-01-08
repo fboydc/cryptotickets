@@ -33,7 +33,8 @@
     "truffle-flattener": "^1.2.9",
     "truffle-hdwallet-provider": "^0.0.7-beta.0",
     "web3": "1.0.0-beta.34",
-    "web3-provider-engine": "^14.1.0"
+    "web3-provider-engine": "^14.1.0",
+    "zeppelin-solidity": "^1.12.0"
   },
   "engines": {
     "node": "8.11.x",
