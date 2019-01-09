@@ -84,14 +84,18 @@ contract TicketsFactory is Factory, Ownable {
     }
   
     function tokenURI(uint256 _optionId) public view returns (string) {
+        require(events[_optionId].exists);
+        string memory eventid = events[_optionId].id;
         return Strings.strConcat(
             baseURI,
-            Strings.uint2str(_optionId)
+            //Strings.uint2str(eventid)
+            eventid
         );
     }
 
     function createEvent(string _id) public {
         events.push(Event(_id, true));
+        NUM_OPTIONS = NUM_OPTIONS + 1;
     }
 
     function getEvent(string _id) view public returns(string){
