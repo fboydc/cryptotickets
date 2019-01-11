@@ -26,8 +26,8 @@
 // const infuraKey = "fj4jll3k.....";
 //
 // const fs = require('fs');
- const mnemonic = "vintage evoke frost two apology bachelor steak year minimum offer glare gentle";
-
+ //const mnemonic = "vintage evoke frost two apology bachelor steak year minimum offer glare gentle";
+const mnemonic = "range anchor trophy jeans column stool emotion hurdle sun hamster avocado kite";
 module.exports = {
   /**
    * Networks define how you connect to your ethereum client and let you set the
@@ -52,12 +52,14 @@ module.exports = {
       network_id: "*",       // Any network (default: none)
       from: "0x85fe2f9e221a4eff4cd54e064bbdf9af0e3b2f37"
      },
-    /*rinkeby: {
+    rinkeby: {
       provider: ()=>{
         return new HDWallet(mnemonic, "https://rinkeby.infura.io/v3/89003dae7ccd446d906c2196189ebfe3");
       },
-      network_id: 4
-    }*/
+      network_id: 4,
+      gas: 3000000,
+      gasPrice: 10000000000
+    }
     // Another network with more advanced options...
     // advanced: {
       // port: 8777,             // Custom port

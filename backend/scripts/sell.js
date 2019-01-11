@@ -5,10 +5,11 @@ const Network = opensea.Network;
 const MnemonicWalletSubprovider = require('@0x/subproviders').MnemonicWalletSubprovider
 const RPCSubprovider = require('web3-provider-engine/subproviders/rpc')
 const Web3ProviderEngine = require('web3-provider-engine')
-const MNEMONIC = "vintage evoke frost two apology bachelor steak year minimum offer glare gentle"
+//const MNEMONIC = "vintage evoke frost two apology bachelor steak year minimum offer glare gentle"
+const MNEMONIC  = "range anchor trophy jeans column stool emotion hurdle sun hamster avocado kite";
 const INFURA_KEY = "15705f90719a4ff6b66d49ea481b6b57"
-const FACTORY_CONTRACT_ADDRESS = "0x3ec7626b5f85020646c5d75cdad9dd84a1f7de9c"
-const OWNER_ADDRESS = "0x5824a273379d7c2960519101a43067ecfff248a3"
+const FACTORY_CONTRACT_ADDRESS = "0x9ac04e226430781490a04c40885b388266b9d102"
+const OWNER_ADDRESS = "0x4ec46253d21b097dd98ffa56a0d28d122544e2de"
 const NETWORK = "rinkeby"
 const API_KEY = "89003dae7ccd446d906c2196189ebfe3"
 const DUTCH_AUCTION_OPTION_ID = "1";
@@ -16,7 +17,7 @@ const DUTCH_AUCTION_START_AMOUNT = 100;
 const DUTCH_AUCTION_END_AMOUNT = 50;    
 const NUM_DUTCH_AUCTIONS = 5;
 
-const FIXED_PRICE_OPTION_ID = "0";
+const FIXED_PRICE_OPTION_ID = "1";
 const NUM_FIXED_PRICE_AUCTIONS = 3;
 const FIXED_PRICE = 1;
 
