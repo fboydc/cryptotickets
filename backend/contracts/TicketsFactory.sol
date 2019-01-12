@@ -12,6 +12,9 @@ contract TicketsFactory is Factory, Ownable {
     address public proxyRegistryAddress;
     address public nftAddress;
     string public baseURI = "https://nuefwqsdv3.execute-api.us-east-1.amazonaws.com/testing/cryptotickets/";
+    mapping (uint256=>uint256) eventToPrice;
+    mapping (uint256=>address) eventToOwner;
+    mapping(uint256=>uint256) eventToTicketnum;
 
     struct Event{
         string id;
@@ -31,6 +34,7 @@ contract TicketsFactory is Factory, Ownable {
     /*uint256 SINGLE_TICKETS_OPTION = 0;
     uint256 MULTIPLE_TICKETS_OPTION = 1;
     uint256 NUM_TICKETS_IN_MULTIPLE_TICKETS_OPTION = 4;*/
+
 
 
     constructor(address _proxyRegistryAddress, address _nftAddress) public {
@@ -64,8 +68,9 @@ contract TicketsFactory is Factory, Ownable {
         require(canMint(_optionId));
     
         Cryptotickets cryptoticket = Cryptotickets(nftAddress);
-
+        eventToTicketsnum[_optionId] = eventToTicketsnum[_optionId] + 1;
         cryptoticket.mintTo(_toAddress);
+        
     }
 
     function canMint(uint256 _optionId) public view returns (bool) {
@@ -95,7 +100,12 @@ contract TicketsFactory is Factory, Ownable {
 
     function createEvent(string _id) public {
         events.push(Event(_id, true));
+        eventToOwner[_id] = msg.sender;
         NUM_OPTIONS = NUM_OPTIONS + 1;
+    }
+
+    function addPriceToEvent(uint256 _event, uint256 _price) public {
+        eventToPrice[_event] = _price;
     }
 
     function getEvent(string _id) view public returns(string){
