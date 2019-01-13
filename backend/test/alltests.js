@@ -81,13 +81,30 @@ contract("TicketsFactory", async accounts=>{
         await TFinstance.createEvent("oiheriwer1-124145-qsfs");
         await TFinstance.mint(1, owner_2);
         assert.equal(await Cinstance.ownerOf(5), owner_2);
+       
     })
 
-    it("should be able to get metadata URI", async()=>{
+    /*it("should be able to get metadata URI", async()=>{
         const URI = await TFinstance.tokenURI(0);
         assert.equal(URI, "https://nuefwqsdv3.execute-api.us-east-1.amazonaws.com/testing/cryptotickets/0");
-    })
+    })*/
 
+    it("should be able to claim its tickets receivable", async()=>{
+        //console.log("tickets receivable", TFinstance.ticketsReceivable[0]);
+        await TFinstance.createEvent("asdfaasdf-1242342145-qtgfsfs");
+        await TFinstance.mint(2, owner_3);
+        await TFinstance.mint(2, owner_2);
+        const total = await TFinstance.getTicketsReceivableAmount(2);
+        assert.equal(total, 2);
+        await TFinstance.collectTicketsReceivable(2);
+        assert.equal(await TFinstance.getTicketsReceivableAmount(2), 0);
+         //assert.equal(await Cinstance.ownerOf(6), owner_3);*/
+        //await TFinstance.mint(2, owner_2);
+        //await TFinstance.mint(2, owner_3);
+        //const total = await TFinstance.getTicketsReceivableAmount(1);
+        //assert.equal(total, 2);
+        
+    })
 
     /*
     it("should get correct metadata", async()=>{

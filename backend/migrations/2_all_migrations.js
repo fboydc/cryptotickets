@@ -1,10 +1,10 @@
-//var ProxyRegistry = artifacts.require("./ProxyRegistry.sol");
-var Cryptotickets = artifacts.require("../consolidated/Cryptotickets.sol");
-var TicketsFactory = artifacts.require("../consolidated/TicketsFactory.sol");
+var ProxyRegistry = artifacts.require("./ProxyRegistry.sol");
+var Cryptotickets = artifacts.require("./Cryptotickets.sol");
+var TicketsFactory = artifacts.require("./TicketsFactory.sol");
 
 const proxyAddress = "0xf57b2c51ded3a29e6891aba85459d600256cf317";
 
-
+/*
 module.exports = (deployer, network, accounts)=>{
     let cryptotickets;
     deployer.deploy(Cryptotickets, proxyAddress).then(async()=>{
@@ -18,14 +18,14 @@ module.exports = (deployer, network, accounts)=>{
             console.log("transfered ownership");
         })
         /*cryptotickets = await Cryptotickets.deployed();
-        console.log("Cryptotickets address ->", cryptotickets.address);*/
+        console.log("Cryptotickets address ->", cryptotickets.address);
         
     })
 
    
-}
+}*/
 
-/*
+
 module.exports = function(deployer, network, accounts){
 
 
@@ -38,6 +38,6 @@ module.exports = function(deployer, network, accounts){
         var cryptotickets = await Cryptotickets.deployed();
         return cryptotickets.transferOwnership(TicketsFactory.address); 
     })*/
-/*
-}*/
+
+}
 

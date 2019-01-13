@@ -12,9 +12,9 @@ contract TicketsFactory is Factory, Ownable {
     address public proxyRegistryAddress;
     address public nftAddress;
     string public baseURI = "https://nuefwqsdv3.execute-api.us-east-1.amazonaws.com/testing/cryptotickets/";
-    mapping (uint256=>uint256) eventToPrice;
-    mapping (uint256=>address) eventToOwner;
-    mapping(uint256=>uint256) eventToTicketnum;
+    mapping(uint256=>uint256) ticketsReceivable;
+    mapping(uint256=>address) eventToOwner;
+    mapping(uint256=>uint256) lastAPIEventId;
 
     struct Event{
         string id;
@@ -35,7 +35,10 @@ contract TicketsFactory is Factory, Ownable {
     uint256 MULTIPLE_TICKETS_OPTION = 1;
     uint256 NUM_TICKETS_IN_MULTIPLE_TICKETS_OPTION = 4;*/
 
-
+    modifier eventOwner(address _address){
+        require(msg.sender == _address, "only event owner can access");
+        _;
+    }
 
     constructor(address _proxyRegistryAddress, address _nftAddress) public {
         proxyRegistryAddress = _proxyRegistryAddress;
@@ -68,7 +71,7 @@ contract TicketsFactory is Factory, Ownable {
         require(canMint(_optionId));
     
         Cryptotickets cryptoticket = Cryptotickets(nftAddress);
-        eventToTicketsnum[_optionId] = eventToTicketsnum[_optionId] + 1;
+        ticketsReceivable[_optionId] = ticketsReceivable[_optionId] + 1;
         cryptoticket.mintTo(_toAddress);
         
     }
@@ -100,13 +103,10 @@ contract TicketsFactory is Factory, Ownable {
 
     function createEvent(string _id) public {
         events.push(Event(_id, true));
-        eventToOwner[_id] = msg.sender;
         NUM_OPTIONS = NUM_OPTIONS + 1;
+        eventToOwner[_id] = msg.sender;
     }
 
-    function addPriceToEvent(uint256 _event, uint256 _price) public {
-        eventToPrice[_event] = _price;
-    }
 
     function getEvent(string _id) view public returns(string){
         string memory evt = "none";
@@ -116,6 +116,18 @@ contract TicketsFactory is Factory, Ownable {
             }
         }
         return evt;
+    }
+
+
+    function collectTicketsReceivable(uint256 _optionId, uint256 _lastAPIeventId) public eventOwner(eventToOwner[_optionId]) returns(uint256){
+        uint256 amount = ticketsReceivable[_optionId];
+        ticketsReceivable[_optionId] = 0;
+        lastAPIEventId[_optionId] = _lastAPIeventId;
+        return amount;
+    }
+
+    function getTicketsReceivableAmount(uint256 _eventId) view public returns (uint256){
+        return ticketsReceivable[_eventId];
     }
 
   /**
