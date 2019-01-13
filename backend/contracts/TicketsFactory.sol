@@ -14,7 +14,7 @@ contract TicketsFactory is Factory, Ownable {
     string public baseURI = "https://nuefwqsdv3.execute-api.us-east-1.amazonaws.com/testing/cryptotickets/";
     mapping(uint256=>uint256) ticketsReceivable;
     mapping(uint256=>address) eventToOwner;
-    mapping(uint256=>uint256) lastAPIEventId;
+    mapping(uint256=>uint256) public lastAPIEventId;
 
     struct Event{
         string id;
@@ -101,10 +101,10 @@ contract TicketsFactory is Factory, Ownable {
         );
     }
 
-    function createEvent(string _id) public {
+    function createEvent(string _id, uint256 _optionId) public {
         events.push(Event(_id, true));
         NUM_OPTIONS = NUM_OPTIONS + 1;
-        eventToOwner[_id] = msg.sender;
+        eventToOwner[_optionId] = msg.sender;
     }
 
 
