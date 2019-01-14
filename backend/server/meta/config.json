@@ -1,0 +1,10 @@
+{
+    "INFURA_KEY":"15705f90719a4ff6b66d49ea481b6b57",
+    "FACTORY_CONTRACT_ADDRESS":"0x90d368d3b588ab4a37ab10d92077ec8fc9cfe51d",
+    "OWNER_ADDRESS":"0x5824a273379D7c2960519101a43067eCfFF248a3",
+    "PRIVATE_KEY":"4eb64b9546be3170b43733c71ec45da205c79c32cb99f58c89ccb8f91834867f",
+    "NETWORK":"rinkeby",
+    "API_KEY":"89003dae7ccd446d906c2196189ebfe3",
+    "MNEMOINC":"vintage evoke frost two apology bachelor steak year minimum offer glare gentle",
+    "API_ENDPOINT":"https://nuefwqsdv3.execute-api.us-east-1.amazonaws.com/testing/cryptotickets/"
+}
