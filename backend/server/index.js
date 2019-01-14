@@ -7,10 +7,11 @@ const Web3ProviderEngine = require('web3-provider-engine')
 const abi = require('./src/ticketsfactory.json')
 const api = require('./meta/api.json')
 const bodyParser = require('body-parser')
+const uuidv1 = require('uuid/v1')
 
 
 const server_wallet = "0x5824a273379D7c2960519101a43067eCfFF248a3"
-
+const endpoint_create = "https://nuefwqsdv3.execute-api.us-east-1.amazonaws.com/testing/cryptotickets/create"
 const app = express()
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
@@ -31,8 +32,32 @@ app.get('/get/:eventid', (req, res)=>{
 
 app.post('/add', (req, res)=>{
     //console.log("request body", req.body);
-    const{eventId, name, image, data, description} = req.body;
-    return res.send("Hello");
+
+    const{id, wallet, metadata, image} = req.body;
+    const requestBody = {
+        id,
+        wallet,
+        metadata,
+        file_name: uuidv1() + ".jpg",
+        image
+    }
+    fetch(endpoint_create, {
+        method: 'POST',
+        body: JSON.stringify(requestBody)
+    }).then(response=>
+        response.json()
+    ).then(data=>{
+        if(data.body === true){
+            console.log("we add to contract here");
+            contract.methods.numOptions().call().then(num=>{
+                console.log("num", num);
+                contract.methods.createEvent(id, num);
+            })
+        }else{
+            res.send(false);
+        }
+    })
+
 
 })
 
