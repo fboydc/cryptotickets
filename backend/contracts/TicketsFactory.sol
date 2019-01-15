@@ -101,10 +101,10 @@ contract TicketsFactory is Factory, Ownable {
         );
     }
 
-    function createEvent(string _id, uint256 _optionId) public {
+    function createEvent(string _id, uint256 _optionId, address _owner) public {
         events.push(Event(_id, true));
         NUM_OPTIONS = NUM_OPTIONS + 1;
-        eventToOwner[_optionId] = msg.sender;
+        eventToOwner[_optionId] = _owner;
     }
 
 
@@ -128,6 +128,17 @@ contract TicketsFactory is Factory, Ownable {
 
     function getTicketsReceivableAmount(uint256 _eventId) view public returns (uint256){
         return ticketsReceivable[_eventId];
+    }
+
+    function getEventOption(string _id)view public returns(uint256){
+        uint256 eventid;
+        for(uint i = 0; i<events.length ; i++){
+            if(keccak256(events[i].id) == keccak256(_id)){
+                eventid = i;
+            }
+        }
+
+        return eventid;
     }
 
   /**

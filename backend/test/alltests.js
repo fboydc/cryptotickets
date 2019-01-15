@@ -63,7 +63,7 @@ contract("TicketsFactory", async accounts=>{
     });
 
     it("should be able to create an event", async()=>{
-        await TFinstance.createEvent("reqwr3-12341r-werw2", 0);
+        await TFinstance.createEvent("reqwr3-12341r-werw2", 0, owner_1);
         const event = await TFinstance.getEvent("reqwr3-12341r-werw2");
 
         assert.equal(event, "reqwr3-12341r-werw2");
@@ -78,7 +78,7 @@ contract("TicketsFactory", async accounts=>{
         assert.equal(await Cinstance.ownerOf(3), owner_4);
         await TFinstance.mint(0, owner_5);
         assert.equal(await Cinstance.ownerOf(4), owner_5);
-        await TFinstance.createEvent("alkjsklajfas-2342-sdfasf", 1);
+        await TFinstance.createEvent("alkjsklajfas-2342-sdfasf", 1, owner_1);
         await TFinstance.mint(1, owner_2);
         assert.equal(await Cinstance.ownerOf(5), owner_2);
        
@@ -91,7 +91,7 @@ contract("TicketsFactory", async accounts=>{
 
     it("should be able to claim its tickets receivable", async()=>{
         //console.log("tickets receivable", TFinstance.ticketsReceivable[0]);
-        await TFinstance.createEvent("a2345234523-sagsadg-3235s", 2);
+        await TFinstance.createEvent("a2345234523-sagsadg-3235s", 2, owner_1);
         await TFinstance.mint(2, owner_3);
         await TFinstance.mint(2, owner_2);
         const total = await TFinstance.getTicketsReceivableAmount(2);
@@ -101,6 +101,14 @@ contract("TicketsFactory", async accounts=>{
         assert.equal(await TFinstance.lastAPIEventId(2), 163229);
        
         
+    })
+
+
+    it("should be able to get correct eventid", async()=>{
+        assert.equal(await TFinstance.getEventOption("reqwr3-12341r-werw2"), 0);
+        assert.equal(await TFinstance.getEventOption("alkjsklajfas-2342-sdfasf"), 1);
+        assert.equal(await TFinstance.getEventOption("a2345234523-sagsadg-3235s"), 2);
+
     })
 
     /*

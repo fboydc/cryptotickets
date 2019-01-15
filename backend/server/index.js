@@ -8,19 +8,43 @@ const abi = require('./src/ticketsfactory.json')
 const api = require('./meta/api.json')
 const bodyParser = require('body-parser')
 const uuidv1 = require('uuid/v1')
-const contract_address = "0x90d368d3b588ab4a37ab10d92077ec8fc9cfe51d";
-const privateKey= Buffer.from("4eb64b9546be3170b43733c71ec45da205c79c32cb99f58c89ccb8f91834867f", "hex")
+const config = require('./meta/config.json');
+const opensea = require('opensea-js')
+const OpenSeaPort = opensea.OpenSeaPort;
+const Network = opensea.Network;
+
+const {SERVER_WALLET, PRIVATE_KEY, FACTORY_CONTRACT_ADDRESS, API_ENDPOINT, MNEMONIC, NETWORK, INFURA_KEY, API_KEY} = config;
+
+const privateKey= Buffer.from(PRIVATE_KEY, "hex")
 
 
-const server_wallet = "0x5824a273379D7c2960519101a43067eCfFF248a3"
 const endpoint_create = "https://nuefwqsdv3.execute-api.us-east-1.amazonaws.com/testing/cryptotickets/create"
-const app = express()
+const app = express();
+
+
+
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
+const BASE_DERIVATION_PATH = `44'/60'/0'/0`;
+const mnemonicWalletSubprovider = new MnemonicWalletSubprovider({ mnemonic: MNEMONIC, baseDerivationPath: BASE_DERIVATION_PATH})
+const infuraRpcSubprovider = new RPCSubprovider({
+    rpcUrl: 'https://' + NETWORK + '.infura.io/' + INFURA_KEY,
+})
+const providerEngine = new Web3ProviderEngine()
+providerEngine.addProvider(mnemonicWalletSubprovider)
+providerEngine.addProvider(infuraRpcSubprovider)
+providerEngine.start();
+
+const seaport = new OpenSeaPort(providerEngine, {
+    networkName: Network.Rinkeby,
+    apiKey: API_KEY
+  }, (arg) => console.log(arg))
+
+
 
 
 web3js = new Web3(new Web3.providers.HttpProvider('https://rinkeby.infura.io/v3/89003dae7ccd446d906c2196189ebfe3'));
-const contract = new web3js.eth.Contract(abi, contract_address);
+const contract = new web3js.eth.Contract(abi, FACTORY_CONTRACT_ADDRESS);
 
 app.get('/get/:eventid', (req, res)=>{
     const {eventid} = req.params;
@@ -31,6 +55,8 @@ app.get('/get/:eventid', (req, res)=>{
         return res.send(data);
     });
 });
+
+
 
 app.post('/add', (req, res)=>{
     //console.log("request body", req.body);
@@ -52,8 +78,8 @@ app.post('/add', (req, res)=>{
         if(data.body === true){
             console.log("we add to contract here");
             contract.methods.numOptions().call().then(num=>{
-                web3js.eth.getTransactionCount(server_wallet).then(function(count){
-                    var rawTransaction = {"from":server_wallet, "gasPrice":web3js.utils.toHex(20*1e9), "gasLimit":web3js.utils.toHex(210000), "to":contract_address, "value":"0x0", "data":contract.methods.createEvent(id, num).encodeABI(), "nonce":web3js.utils.toHex(count)}
+                web3js.eth.getTransactionCount(SERVER_WALLET).then(function(count){
+                    var rawTransaction = {"from":SERVER_WALLET, "gasPrice":web3js.utils.toHex(20*1e9), "gasLimit":web3js.utils.toHex(210000), "to":FACTORY_CONTRACT_ADDRESS, "value":"0x0", "data":contract.methods.createEvent(id, num, wallet).encodeABI(), "nonce":web3js.utils.toHex(count)}
                     var transaction = new tx(rawTransaction);
                     transaction.sign(privateKey);
                     web3js.eth.sendSignedTransaction('0x'+transaction.serialize().toString('hex')).on('transactionHash', ()=>{
@@ -70,7 +96,35 @@ app.post('/add', (req, res)=>{
 
 })
 
+app.post('/sellorder', (req, res)=>{
+    const {eventid, type, price, numOfTickets, wallet} = req.body;
 
+    contract.methods.getEventOption(eventid).call().then(optionId=>{
+        createOrder(optionId, price, numOfTickets, res);
+        //res.send("done");
+    })
+
+
+
+});
+
+async function createOrder(optionId,  price, numOfTickets, res){
+    try{
+        console.log("Creating fixed price auctions...")
+        const fixedSellOrders = await seaport.createFactorySellOrders({
+            assetId: optionId,
+            factoryAddress: FACTORY_CONTRACT_ADDRESS,
+            accountAddress: SERVER_WALLET.toLowerCase(),
+            startAmount: price,
+            numberOfOrders: numOfTickets
+        })
+        res.send(true);
+        console.log(`Successfully made ${fixedSellOrders.length} fixed-price sell orders! ${fixedSellOrders[0].asset.openseaLink}\n`)
+    }catch(error){
+        console.log("Something happened", error);
+        res.send(false)
+    }
+}
 
 
 
