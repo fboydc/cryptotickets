@@ -18,7 +18,8 @@ const {SERVER_WALLET, PRIVATE_KEY, FACTORY_CONTRACT_ADDRESS, API_ENDPOINT, MNEMO
 const privateKey= Buffer.from(PRIVATE_KEY, "hex")
 
 
-const endpoint_create = "https://nuefwqsdv3.execute-api.us-east-1.amazonaws.com/testing/cryptotickets/create"
+const endpoint_create = API_ENDPOINT+"create";
+
 const app = express();
 
 
@@ -60,23 +61,26 @@ app.get('/get/:eventid', (req, res)=>{
 
 app.post('/add', (req, res)=>{
     //console.log("request body", req.body);
-
-    const{id, wallet, metadata, image} = req.body;
+    console.log("req", req);
+    const{id, wallet, metadata, image, category} = req.body;
     const requestBody = {
         id,
         wallet,
         metadata,
         file_name: uuidv1() + ".jpg",
-        image
+        image,
+        category
     }
+
+    console.log("request body", requestBody);
     fetch(endpoint_create, {
         method: 'POST',
         body: JSON.stringify(requestBody)
     }).then(response=>
         response.json()
     ).then(data=>{
+        console.log("data", data);
         if(data.body === true){
-            console.log("we add to contract here");
             contract.methods.numOptions().call().then(num=>{
                 web3js.eth.getTransactionCount(SERVER_WALLET).then(function(count){
                     var rawTransaction = {"from":SERVER_WALLET, "gasPrice":web3js.utils.toHex(20*1e9), "gasLimit":web3js.utils.toHex(210000), "to":FACTORY_CONTRACT_ADDRESS, "value":"0x0", "data":contract.methods.createEvent(id, num, wallet).encodeABI(), "nonce":web3js.utils.toHex(count)}
@@ -96,6 +100,25 @@ app.post('/add', (req, res)=>{
 
 })
 
+app.get('/walletevents/:id', (req,res)=>{
+    
+    const {id} = req.params;
+    console.log("wallet", id);
+    console.log("endpoint", API_ENDPOINT+"walletevents/"+id);
+    return fetch(API_ENDPOINT+"walletevents/"+id).then(response=>
+        response.json()
+    ).then(data=>{
+        console.log("data", data);
+        res.send(data);
+    })
+})
+
+app.post('/edit/', (req, res)=>{
+    const {eventid, wallet} = req.body;
+
+    //return fetch()
+})
+
 app.post('/sellorder', (req, res)=>{
     const {eventid, type, price, numOfTickets, wallet} = req.body;
 
@@ -107,6 +130,7 @@ app.post('/sellorder', (req, res)=>{
 
 
 });
+
 
 async function createOrder(optionId,  price, numOfTickets, res){
     try{
@@ -125,6 +149,8 @@ async function createOrder(optionId,  price, numOfTickets, res){
         res.send(false)
     }
 }
+
+
 
 
 
