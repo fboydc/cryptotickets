@@ -13,7 +13,7 @@ const opensea = require('opensea-js')
 const OpenSeaPort = opensea.OpenSeaPort;
 const Network = opensea.Network;
 
-const {SERVER_WALLET, PRIVATE_KEY, FACTORY_CONTRACT_ADDRESS, API_ENDPOINT, MNEMONIC, NETWORK, INFURA_KEY, API_KEY} = config;
+const {SERVER_WALLET, PRIVATE_KEY, FACTORY_CONTRACT_ADDRESS, API_ENDPOINT, MNEMONIC, NETWORK, INFURA_KEY, API_KEY, OPENSEA_ASSET_URL} = config;
 
 const privateKey= Buffer.from(PRIVATE_KEY, "hex")
 
@@ -47,12 +47,22 @@ const seaport = new OpenSeaPort(providerEngine, {
 web3js = new Web3(new Web3.providers.HttpProvider('https://rinkeby.infura.io/v3/89003dae7ccd446d906c2196189ebfe3'));
 const contract = new web3js.eth.Contract(abi, FACTORY_CONTRACT_ADDRESS);
 
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Content-Type", "applicaton/json");
+    res.header("Connection", "keep-alive");
+    next();
+  });
+
 app.get('/get/:eventid', (req, res)=>{
     const {eventid} = req.params;
     console.log("fetching - events for" + eventid);
     return fetch(api.server_url + api.resource + eventid).then(response=>
         response.json()
     ).then(data=>{
+        res.header("")
         return res.send(data);
     });
 });
@@ -87,7 +97,14 @@ app.post('/add', (req, res)=>{
                     var transaction = new tx(rawTransaction);
                     transaction.sign(privateKey);
                     web3js.eth.sendSignedTransaction('0x'+transaction.serialize().toString('hex')).on('transactionHash', ()=>{
-                        res.send("created event - " + id);
+                        const response = {
+                                statusCode: 200,
+                                headers: {
+                                    "Content-Type":"application/json"
+                                },
+                                body: OPENSEA_ASSET_URL + FACTORY_CONTRACT_ADDRESS + "/"+ num
+                        }
+                        res.send(response);
                     });
                     
                 });
@@ -103,13 +120,21 @@ app.post('/add', (req, res)=>{
 app.get('/walletevents/:id', (req,res)=>{
     
     const {id} = req.params;
+    
     console.log("wallet", id);
-    console.log("endpoint", API_ENDPOINT+"walletevents/"+id);
-    return fetch(API_ENDPOINT+"walletevents/"+id).then(response=>
+    console.log("endpoint", API_ENDPOINT+"walletevents/"+id.toLowerCase());
+    return fetch(API_ENDPOINT+"walletevents/"+id.toLowerCase()).then(response=>
         response.json()
     ).then(data=>{
         console.log("data", data);
-        res.send(data);
+        const response = {
+            statusCode: 200,
+            headers: {
+                "Content-Type":"application/json"
+            },
+            body: JSON.stringify(data)
+        }
+        res.send(response);
     })
 })
 

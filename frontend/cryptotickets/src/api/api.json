@@ -1,0 +1,11 @@
+{
+    "server":"http://localhost:8080/",
+    "endpoints":[
+        {
+            "add":"add"
+        },
+        {
+            "getWalletEvents":"walletevents/"
+        }
+    ]
+}
