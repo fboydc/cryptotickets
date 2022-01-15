@@ -126,8 +126,8 @@ contract TicketsFactory is Factory, Ownable {
         return amount;
     }
 
-    function getTicketsReceivableAmount(uint256 _eventId) view public returns (uint256){
-        return ticketsReceivable[_eventId];
+    function getTicketsReceivableAmount(uint256 _optionId) view public returns (uint256){
+        return ticketsReceivable[_optionId];
     }
 
     function getEventOption(string _id)view public returns(uint256){

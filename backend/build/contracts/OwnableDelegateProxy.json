@@ -1,24 +1,25 @@
 {
   "contractName": "OwnableDelegateProxy",
   "abi": [],
-  "bytecode": "0x6080604052348015600f57600080fd5b50603580601d6000396000f3006080604052600080fd00a165627a7a72305820836c92f2b661e024eee140b2fc89e57c2398bca4a44a904e8bcaa6c630519c2c0029",
-  "deployedBytecode": "0x6080604052600080fd00a165627a7a72305820836c92f2b661e024eee140b2fc89e57c2398bca4a44a904e8bcaa6c630519c2c0029",
-  "sourceMap": "26:38:3:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;26:38:3;;;;;;;",
-  "deployedSourceMap": "26:38:3:-;;;;;",
-  "source": "pragma solidity ^0.4.24;\n\ncontract OwnableDelegateProxy {\n    \n}",
-  "sourcePath": "/Users/fboyd/Documents/projects/cryptotickets/backend/contracts/OwnableDelegateProxy.sol",
+  "metadata": "{\"compiler\":{\"version\":\"0.4.24+commit.e67f0147\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/D/cryptotickets/backend/contracts/OwnableDelegateProxy.sol\":\"OwnableDelegateProxy\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/D/cryptotickets/backend/contracts/OwnableDelegateProxy.sol\":{\"keccak256\":\"0x648e2c68f2d0439b56d780f5f2e8156118835cc60c5b3e8273c4994dc5610fc5\",\"urls\":[\"bzzr://1d85995a870b67e6104c34abf08de765f7ffe362f9b72de4b2af46b1e9bb5e33\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603580601d6000396000f3006080604052600080fd00a165627a7a723058205b0f3bead7e47bcf7af698c3b1141f36c8c8651d47820a44bffce7c30b070cec0029",
+  "deployedBytecode": "0x6080604052600080fd00a165627a7a723058205b0f3bead7e47bcf7af698c3b1141f36c8c8651d47820a44bffce7c30b070cec0029",
+  "sourceMap": "28:40:2:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;28:40:2;;;;;;;",
+  "deployedSourceMap": "28:40:2:-;;;;;",
+  "source": "pragma solidity ^0.4.24;\r\n\r\ncontract OwnableDelegateProxy {\r\n    \r\n}",
+  "sourcePath": "D:\\cryptotickets\\backend\\contracts\\OwnableDelegateProxy.sol",
   "ast": {
-    "absolutePath": "/Users/fboyd/Documents/projects/cryptotickets/backend/contracts/OwnableDelegateProxy.sol",
+    "absolutePath": "/D/cryptotickets/backend/contracts/OwnableDelegateProxy.sol",
     "exportedSymbols": {
       "OwnableDelegateProxy": [
-        138
+        81
       ]
     },
-    "id": 139,
+    "id": 82,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 137,
+        "id": 80,
         "literals": [
           "solidity",
           "^",
@@ -26,7 +27,7 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:3"
+        "src": "0:24:2"
       },
       {
         "baseContracts": [],
@@ -34,66 +35,78 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 138,
+        "id": 81,
         "linearizedBaseContracts": [
-          138
+          81
         ],
         "name": "OwnableDelegateProxy",
         "nodeType": "ContractDefinition",
         "nodes": [],
-        "scope": 139,
-        "src": "26:38:3"
+        "scope": 82,
+        "src": "28:40:2"
       }
     ],
-    "src": "0:64:3"
+    "src": "0:68:2"
   },
   "legacyAST": {
-    "absolutePath": "/Users/fboyd/Documents/projects/cryptotickets/backend/contracts/OwnableDelegateProxy.sol",
-    "exportedSymbols": {
-      "OwnableDelegateProxy": [
-        138
-      ]
+    "attributes": {
+      "absolutePath": "/D/cryptotickets/backend/contracts/OwnableDelegateProxy.sol",
+      "exportedSymbols": {
+        "OwnableDelegateProxy": [
+          81
+        ]
+      }
     },
-    "id": 139,
-    "nodeType": "SourceUnit",
-    "nodes": [
+    "children": [
       {
-        "id": 137,
-        "literals": [
-          "solidity",
-          "^",
-          "0.4",
-          ".24"
-        ],
-        "nodeType": "PragmaDirective",
-        "src": "0:24:3"
+        "attributes": {
+          "literals": [
+            "solidity",
+            "^",
+            "0.4",
+            ".24"
+          ]
+        },
+        "id": 80,
+        "name": "PragmaDirective",
+        "src": "0:24:2"
       },
       {
-        "baseContracts": [],
-        "contractDependencies": [],
-        "contractKind": "contract",
-        "documentation": null,
-        "fullyImplemented": true,
-        "id": 138,
-        "linearizedBaseContracts": [
-          138
-        ],
-        "name": "OwnableDelegateProxy",
-        "nodeType": "ContractDefinition",
-        "nodes": [],
-        "scope": 139,
-        "src": "26:38:3"
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "contract",
+          "documentation": null,
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            81
+          ],
+          "name": "OwnableDelegateProxy",
+          "nodes": [
+            null
+          ],
+          "scope": 82
+        },
+        "id": 81,
+        "name": "ContractDefinition",
+        "src": "28:40:2"
       }
     ],
-    "src": "0:64:3"
+    "id": 82,
+    "name": "SourceUnit",
+    "src": "0:68:2"
   },
   "compiler": {
     "name": "solc",
     "version": "0.4.24+commit.e67f0147.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "3.0.0",
-  "updatedAt": "2019-01-11T15:19:30.398Z",
+  "schemaVersion": "3.4.1",
+  "updatedAt": "2021-11-28T18:56:58.843Z",
   "devdoc": {
     "methods": {}
   },

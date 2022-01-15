@@ -1,35 +1,63 @@
 import React, {useState, useEffect} from 'react';
-import DatePicker from "react-datepicker";
-import FileBase64 from 'react-file-base64';
-import Web3 from 'web3';
+import Wizard from './Wizard';
+import WizardSteps from './WizardSteps';
 import api from '../api/api.json';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
+import Web3 from 'web3';
 
-const uuidv1 = require('uuid/v1');
 const web3 = new Web3(Web3.givenProvider);
 
+const uuidv1 = require('uuid/v1');
 
 
 
 
-const Create = ()=>{
+const Create = (props)=>{
 
-    console.log("endpoint", api.endpoints[0].add);
 
-    const [spinner, setSpinner] = useState(false);
-    const [form, setValues] = useState({
+
+    const wizard = ['About', 'Details', 'Organizer','Summary'];
+
+
+    const getAccounts = (callback)=> {
+       web3.eth.getAccounts((error,result) => {
+           if (error) {
+               setValues({...form, wallet_error: error})
+           } else {
+               callback(result);
+           }
+       });
+     }
+
+      useEffect(()=>{
+        getAccounts((result)=>{
+            setValues({...form, wallet: result[0]});
+        })
+
+      }, []);
+
+
+     const [spinner, setSpinner] = useState(false);
+
+
+     const [wizardTab, setCurrentTab] = useState({
+        current: 0,
+        errors: []
+    });
+
+
+     const [form, setValues] = useState({
         event_id: uuidv1(),
-        wallet: window.web3.eth.defaultAccount,
+        wallet: props.wallet,
         form_image: '',
         img_preview:'',
         img_name: '',
         event_name: '',
         event_category: '',
-        start_date: new Date(),
+        start_date: '',
         end_date: '',
-        start_time: '00:00',
-        end_time: "00:00",
+        start_time: '',
+        end_time: '',
         event_type: '',
         event_address_line_1: '',
         event_address_line_2: '',
@@ -37,38 +65,32 @@ const Create = ()=>{
         city: '',
         state: '',
         zip_code: '',
+        event_link: '',
         description_about: '',
-        description_organizer: '',
+        organizer_type: '',
+        company_name:'',
+        organizer_phone_num: '',
+        organizer_email: '',
+        first: '',
+        last:'',
         ticket_type:''
     });
 
 
 
-    const updateField = e=>{
-        
-        setValues({
-            ...form,
-            [e.target.name]: e.target.value
-        });
-
-        
-
-    }
-    
-
-    const resetForm = ()=>{
+     const resetForm = ()=>{
         setValues({
             event_id: uuidv1(),
-            wallet: window.web3.eth.defaultAccount,
+            wallet: props.wallet,
             form_image: '',
             img_preview:'',
             img_name: '',
             event_name: '',
             event_category: '',
-            start_date: new Date(),
+            start_date: '',
             end_date: '',
-            start_time: '00:00',
-            end_time: "00:00",
+            start_time: '',
+            end_time: '',
             event_type: '',
             event_address_line_1: '',
             event_address_line_2: '',
@@ -76,32 +98,118 @@ const Create = ()=>{
             city: '',
             state: '',
             zip_code: '',
+            event_link: '',
             description_about: '',
-            description_organizer: '',
+            organizer_type: '',
+            company_name:'', 
+            organizer_phone_num: '',
+            organizer_email: '',
+            first:'',
+            last:'',
             ticket_type:''
         })
     }
 
-    const handleStartDateChange = date=>{
+
+      const updateField = e=>{
+        let errors = [e.target.name];
+        setErrors(errors, wizardTab.currentTab, 'remove');
+        setValues({
+            ...form,
+            [e.target.name]: e.target.value
+        });
+
+      }
+
+
+      const handleStartDateChange = date=>{
+        let errors = ['start_date'];
+
+        setErrors(errors, wizardTab.current, 'remove');  
         setValues({
             ...form,
             "start_date":date
         })
-    }
 
-    const handleEndDateChange = date=>{
+
+      }
+
+
+      const handleEndDateChange = date=>{
+         let errors = ['end_date'];
+
+        setErrors(errors, wizardTab.current, 'remove');  
         setValues({
             ...form,
             "end_date":date
         })
-    }
+      }
+
+
+    
+
+     const nextTab = ()=> {
+        let current = wizardTab.current + 1;
+        let errors = [...wizardTab.errors]
+        setCurrentTab({current, errors})
+     }
+
+     const prevTab = ()=> {
+        let current = wizardTab.current - 1;
+        let errors = [...wizardTab.errors]
+        setCurrentTab({current, errors})
+     }
+
+
+     const goToTab = (index)=> {
+      let errors = [...wizardTab.errors]
+      setCurrentTab({current: index, errors});
+
+     }
+
+     const setErrors = (errors_collection, currentTab, action)=>{
+         let errors = [...wizardTab.errors]
+         
+         switch(action){
+            case 'add':
+               errors_collection.forEach(item=>errors.push(item));
+            break;
+            case 'remove':
+               errors_collection.forEach(item=>{
+                  errors = errors.filter(subitem => (subitem !== item));
+               })
+            break;
+         }
+         
+         setCurrentTab({...wizardTab, errors});
+
+     }
+
+
+
+
 
     const handleImageUpload = e=>{
         const file = e.target.files[0];
 
     }
 
-    const getFiles = files=>{
+   const getImageDimensions = file=>{
+        return new Promise (function(resolved, rejected) {
+            var i = new Image();
+            i.onload = ()=>{
+                resolved({w: i.width, h:i.height})
+            };
+
+            i.src = file;
+        })
+    }
+
+
+
+    async function getFiles(files){
+        let errors = wizardTab.errors.filter(error=>(error !== 'image_format'));
+
         const img_data = files[0];
         const type = files[0].type;
         const img_name = files[0].name;
@@ -110,11 +218,20 @@ const Create = ()=>{
         
         const img_preview = URL.createObjectURL(files[0].file);
 
-        if(type !== "image/jpeg"){
+        var dimensions = await getImageDimensions(files[0].base64);
+
+         if(type !== "image/jpeg" || dimensions.w !== 350 || dimensions.h !== 350){
+            
+            errors.push('image_format');
+            setValues({...form,
+                        form_image: '',
+                        img_preview:'',
+                        img_name: ''
+                     });
             return false;
-            //show error//
         }
 
+        
         setValues({
             ...form,
             form_image: base64,
@@ -124,7 +241,7 @@ const Create = ()=>{
     }
 
     const createEvent = ()=>{
-       
+       /*
        if(form.form_image&&
         form.event_name&&
         form.event_category&&
@@ -163,7 +280,115 @@ const Create = ()=>{
             alert("Please fill all the fields");
         }
 
-       
+       */
+    }
+
+
+
+    const handleNext = (current)=>{
+
+        if(errorHandler(current).length === 0)
+            nextTab();
+    }
+    
+
+    const handlePrev = (current)=>{
+            prevTab();
+    }
+
+
+    const verifyForms = ()=>{
+        props.tabs.every((tab,index)=>{
+            if(errorHandler(index))
+                return false;
+
+            return true;
+        })
+
+    }
+
+    const handleGoTo = (current)=>{
+      
+ 
+    }
+
+    const errorHandler = (current) => {
+        let errors = [...wizardTab.errors];
+        switch(current) {
+            case 0:
+               console.log("here")
+                let fields = [...errors[current]]; 
+                if(!form.event_name && !fields.includes('event_name'))
+                   fields.push('event_name');
+                    //errors.push('event_name');
+                
+                if(!form.description_about && !fields['description_about'])
+                    fields.push('description_about');
+                     //errors.push('description_about');
+                errors.push(fields);                  
+                setErrors(errors, current, 'add');
+            break;
+            case 1:
+                errors = [...wizardTab.errors];
+                if(!form.start_date && !errors.includes('start_date'))
+                    errors.push('start_date');                    
+                if(!form.start_time && !errors.includes('start_time'))
+                    errors.push('start_time');
+                if(!form.end_date && !errors.includes('end_date'))
+                    errors.push('end_date');
+                if(!form.end_time && !errors.includes('end_time'))
+                    errors.push('end_time');
+                if(!form.event_type && !errors.includes('event_type'))
+                    errors.push('event_type');
+                if(form.event_type === 'on-site'){
+                    if(!form.event_address_line_1 && !errors.includes('event_address_line_1'))
+                        errors.push('event_address_line_1');
+                    if(!form.event_address_line_2 && !errors.includes('event_address_line_2'))
+                        errors.push('event_address_line_2');
+                    if(!form.city && !errors.includes('city'))
+                        errors.push('city');
+                    if(!form.state && !errors.includes('state'))
+                        errors.push('state');
+                    if(!form.zip_code && !errors.includes('zip_code'))
+                        errors.push('zip_code');
+
+
+                } else {
+                   if(!form.event_link && !errors.includes('event_link'))
+                    errors.push('event_link');
+                }
+
+                console.log("errors before being pushed", errors);
+                setErrors(errors, current, 'add');
+            break;
+            case 2:
+                errors = [...wizardTab.errors];
+                if(!form.organizer_type)
+                    errors.push('organizer_type');
+                if(form.organizer_type === 'org'){
+                    if(!form.company_name)
+                        errors.push('company_name');
+                } 
+
+                if(form.organizer_type === 'person'){
+                    if(!form.first)
+                        errors.push('first');
+                    if(!form.last)
+                        errors.push('last');
+                }
+                if(!form.organizer_phone_num)
+                    errors.push('organizer_phone_num');
+                if(!form.organizer_email)
+                    errors.push('organizer_email');
+                if(!form.wallet)
+                    errors.push('wallet');
+                setValues({...form, errors});
+
+            break;
+        }
+        console.log("errors", errors);
+        return errors;
+
     }
 
 
@@ -226,130 +451,26 @@ const Create = ()=>{
     }
 
 
-    if(spinner){
-        return (
-            <div className="create_event_form">
-                <div className="loading_dialog">
-                    <FontAwesomeIcon icon="spinner" className="fa-spin"/>
-                    Creating the event...
-                </div>
-            </div>
-        )
-    }else{
-        return (
-        
-            <div className="create_event_form">
-                 
-                 <div className="left_form">
-                     {
-                         form.img_preview ? (
-                             <div className="form_image">
-                                 <img src={form.img_preview}/>
-                             </div>
-                         ):(
-     
-                             <div className="form_image">
-                                 <label className="custom_file_upload">
-                                     <FileBase64 multiple={true} onDone={getFiles}/>
-                                     Upload image
-                                 </label>
-                             </div>
-                         )
-                     }
-                 
-                 </div>
-                 <div className="right_form">
-                     <h2>Create an event</h2>
-                     <h3>Event Details</h3>
-                     <div className="form_input_group">
-                         <strong>Event ID</strong>
-                         <input name="event_id" value={form.event_id} disabled/>
-                     </div>
-                     <div className="form_input_group">
-                         <strong>Event Name</strong>
-                         <input name="event_name" type="text" value={form.event_name} onChange={updateField} placeholder={"Event Name"}/>
-                     </div>
-                     <div className="form_input_group">
-                         <strong>Category</strong>
-                         <select value={form.event_category} name="event_category" onChange={updateField}>
-                             <option value="">Choose an Option</option>
-                             <option value="Health & Fitness">Health & Fitness</option>
-                             <option value="Festivals">Festivals</option>
-                         </select>
-                     </div>
-                     <div className="form_input_group_many">
-                         <div className="form_input_group horizontal"> 
-                             <strong>Start Date</strong>
-                             <div className="form_input_subgroup">
-                                 <DatePicker name="start_date" selected={form.start_date} onChange={handleStartDateChange}/>
-                                 <input type="time" name="start_time" value={form.start_time} onChange={updateField}/>
-                             </div>
-                         </div>
-                         <div className="form_input_group horizontal"> 
-                             <strong>End Date</strong>
-                             <div className="form_input_subgroup">
-                                 <DatePicker name="end_date" selected={form.end_date} onChange={handleEndDateChange}/>
-                                 <input type="time" name="end_time" value={form.end_time} onChange={updateField}/>
-                             </div>
-                         </div>
-                     </div>
-                     <div className="form_input_group">
-                         <strong>Event Type</strong>
-                         <select value={form.event_type} name="event_type" onChange={updateField}>
-                             <option value="">Choose an Option</option>
-                             <option value="on-site">On-Site</option>
-                             <option value="online">Online</option>
-                         </select>
-                     </div>
-                     <div className="form_input_group">
-                         <strong>Enter Location Address</strong>
-                         <input name="event_address_line_1" type="text" value={form.event_address_line_1} onChange={updateField} placeholder={"Address line 1"}/>
-                         <input name="event_address_line_2" type="text" value={form.event_address_line_2} onChange={updateField} placeholder={"Address line 2"}/>
-                         <select value={form.country} name="country" onChange={updateField}>
-                             <option value="United States">United States</option>
-                         </select>
-                         <div className="form_input_group_many">
-                             <input type="text" name="city" value={form.city} onChange={updateField} placeholder={"City"}/>
-                             <select value={form.state} name="state" onChange={updateField}>
-                                 <option value="">State</option>
-                                 <option value="florida">Florida</option>
-                             </select>
-                             <input type="text" name="zip_code" value={form.zip_code} onChange={updateField} placeholder={"Zip"}/>
-                         </div>
-                     </div>
-                     <div className="form_input_group">
-                         <h3>Descriptions</h3>
-                         <strong>About the event</strong>
-                         <textarea name="description_about" className="textarea" value={form.description_about} onChange={updateField} placeholder={"Talk about the event, talk about what people will take away from it, and share your event's itinerary"}>
-     
-                         </textarea>
-                         <strong>About the organizer</strong>
-                         <textarea name="description_organizer" className="textarea" value={form.description_organizer} onChange={updateField} placeHolder={"Tell people a little bit about the organizer, their background, their goals and more."}>
-     
-                         </textarea>
-                     </div>
-                     <div className="form_input_group">
-                         <strong>Ticket Type</strong>
-                         <select value={form.ticket_type} name="ticket_type" onChange={updateField}>
-                             <option value="">Choose an Option</option>
-                             <option value="General Admission">General Admission</option>
-                             <option value="VIP">VIP</option>
-                         </select>
-                     </div>
-                     <div className="form_input_group">
-                         <strong>Wallet ID</strong>
-                         <input type="text" name="wallet" value={form.wallet} disabled/>
-                     </div>
-                     <button className="form_button_submit" type="submit" onClick={createEvent}>
-                         Create event
-                     </button>
-                 </div>
-     
-            </div>
-         )
-    }
-   
-
+    return(
+        <div className="wizard_container">
+            <h1>Follow the steps to create your event</h1>
+            <WizardSteps tabs={wizard} currentTab={wizardTab.current} goToTab={goToTab} errors={wizardTab.errors}/>
+            <Wizard  data={form}
+                     currentTab={wizardTab.current}
+                     updateField={updateField} 
+                     handleNext={handleNext}
+                     handleStartDateChange={handleStartDateChange}
+                     handleEndDateChange={handleEndDateChange}
+                     nextTab={nextTab} 
+                     prevTab={prevTab} 
+                     goToTab={goToTab} 
+                     wallet={props.wallet} 
+                     tabs={wizard} 
+                     setErrors={setErrors} 
+                     errors={wizardTab.errors}
+                     spinner={spinner}/>
+        </div>
+    );
     
 }
 

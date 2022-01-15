@@ -17,7 +17,7 @@ const Browse = ()=>{
     }
 
     useEffect(()=>{
-        setWallet(window.web3.eth.defaultAccount);
+        setWallet(web3.eth.defaultAccount);
         if(wallet){
             /*console.log("here");
            fetch(api.server+api.endpoints[1].getWalletEvents + wallet).then(response=>

@@ -21,24 +21,25 @@
       "type": "function"
     }
   ],
-  "bytecode": "0x608060405234801561001057600080fd5b50610123806100206000396000f300608060405260043610603f576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063c4552791146044575b600080fd5b348015604f57600080fd5b506082600480360381019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919050505060c4565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b60006020528060005260406000206000915054906101000a900473ffffffffffffffffffffffffffffffffffffffff16815600a165627a7a723058208efe10403a9fb0fa424b7e5c38480d408bb4e10512ee5648e52c0bed9d85e0b30029",
-  "deployedBytecode": "0x608060405260043610603f576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063c4552791146044575b600080fd5b348015604f57600080fd5b506082600480360381019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919050505060c4565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b60006020528060005260406000206000915054906101000a900473ffffffffffffffffffffffffffffffffffffffff16815600a165627a7a723058208efe10403a9fb0fa424b7e5c38480d408bb4e10512ee5648e52c0bed9d85e0b30029",
-  "sourceMap": "63:87:4:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;63:87:4;;;;;;;",
-  "deployedSourceMap": "63:87:4:-;;;;;;;;;;;;;;;;;;;;;;;;92:55;;8:9:-1;5:2;;;30:1;27;20:12;5:2;92:55:4;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o",
-  "source": "pragma solidity ^0.4.24;\nimport \"./OwnableDelegateProxy.sol\";\n\ncontract ProxyRegistry {\n    mapping(address => OwnableDelegateProxy) public proxies;\n}",
-  "sourcePath": "/Users/fboyd/Documents/projects/cryptotickets/backend/contracts/ProxyRegistry.sol",
+  "metadata": "{\"compiler\":{\"version\":\"0.4.24+commit.e67f0147\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"address\"}],\"name\":\"proxies\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/D/cryptotickets/backend/contracts/ProxyRegistry.sol\":\"ProxyRegistry\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/D/cryptotickets/backend/contracts/OwnableDelegateProxy.sol\":{\"keccak256\":\"0x648e2c68f2d0439b56d780f5f2e8156118835cc60c5b3e8273c4994dc5610fc5\",\"urls\":[\"bzzr://1d85995a870b67e6104c34abf08de765f7ffe362f9b72de4b2af46b1e9bb5e33\"]},\"/D/cryptotickets/backend/contracts/ProxyRegistry.sol\":{\"keccak256\":\"0xfb6a713c436e1ed7c0f60980d00c6fa57b5ad8042f1a7b7998062931bf37a34c\",\"urls\":[\"bzzr://8e3b7d4fa5a8bcf8fbb9d2a6d3b0dd77e3041be5a0e6f4f2ffdcb8daac407a5a\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b50610123806100206000396000f300608060405260043610603f576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063c4552791146044575b600080fd5b348015604f57600080fd5b506082600480360381019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919050505060c4565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b60006020528060005260406000206000915054906101000a900473ffffffffffffffffffffffffffffffffffffffff16815600a165627a7a7230582017139d1bebc70be1e9dc267eab33d5b388206d8a425e773400aa9bdefdf0419e0029",
+  "deployedBytecode": "0x608060405260043610603f576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063c4552791146044575b600080fd5b348015604f57600080fd5b506082600480360381019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919050505060c4565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b60006020528060005260406000206000915054906101000a900473ffffffffffffffffffffffffffffffffffffffff16815600a165627a7a7230582017139d1bebc70be1e9dc267eab33d5b388206d8a425e773400aa9bdefdf0419e0029",
+  "sourceMap": "66:89:3:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;66:89:3;;;;;;;",
+  "deployedSourceMap": "66:89:3:-;;;;;;;;;;;;;;;;;;;;;;;;96:55;;8:9:-1;5:2;;;30:1;27;20:12;5:2;96:55:3;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o",
+  "source": "pragma solidity ^0.4.24;\r\nimport \"./OwnableDelegateProxy.sol\";\r\n\r\ncontract ProxyRegistry {\r\n    mapping(address => OwnableDelegateProxy) public proxies;\r\n}",
+  "sourcePath": "D:\\cryptotickets\\backend\\contracts\\ProxyRegistry.sol",
   "ast": {
-    "absolutePath": "/Users/fboyd/Documents/projects/cryptotickets/backend/contracts/ProxyRegistry.sol",
+    "absolutePath": "/D/cryptotickets/backend/contracts/ProxyRegistry.sol",
     "exportedSymbols": {
       "ProxyRegistry": [
-        146
+        89
       ]
     },
-    "id": 147,
+    "id": 90,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 140,
+        "id": 83,
         "literals": [
           "solidity",
           "^",
@@ -46,16 +47,16 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:4"
+        "src": "0:24:3"
       },
       {
-        "absolutePath": "/Users/fboyd/Documents/projects/cryptotickets/backend/contracts/OwnableDelegateProxy.sol",
+        "absolutePath": "/D/cryptotickets/backend/contracts/OwnableDelegateProxy.sol",
         "file": "./OwnableDelegateProxy.sol",
-        "id": 141,
+        "id": 84,
         "nodeType": "ImportDirective",
-        "scope": 147,
-        "sourceUnit": 139,
-        "src": "25:36:4",
+        "scope": 90,
+        "sourceUnit": 82,
+        "src": "26:36:3",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -65,53 +66,53 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 146,
+        "id": 89,
         "linearizedBaseContracts": [
-          146
+          89
         ],
         "name": "ProxyRegistry",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 145,
+            "id": 88,
             "name": "proxies",
             "nodeType": "VariableDeclaration",
-            "scope": 146,
-            "src": "92:55:4",
+            "scope": 89,
+            "src": "96:55:3",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_address_$_t_contract$_OwnableDelegateProxy_$138_$",
+              "typeIdentifier": "t_mapping$_t_address_$_t_contract$_OwnableDelegateProxy_$81_$",
               "typeString": "mapping(address => contract OwnableDelegateProxy)"
             },
             "typeName": {
-              "id": 144,
+              "id": 87,
               "keyType": {
-                "id": 142,
+                "id": 85,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
-                "src": "100:7:4",
+                "src": "104:7:3",
                 "typeDescriptions": {
                   "typeIdentifier": "t_address",
                   "typeString": "address"
                 }
               },
               "nodeType": "Mapping",
-              "src": "92:40:4",
+              "src": "96:40:3",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_address_$_t_contract$_OwnableDelegateProxy_$138_$",
+                "typeIdentifier": "t_mapping$_t_address_$_t_contract$_OwnableDelegateProxy_$81_$",
                 "typeString": "mapping(address => contract OwnableDelegateProxy)"
               },
               "valueType": {
                 "contractScope": null,
-                "id": 143,
+                "id": 86,
                 "name": "OwnableDelegateProxy",
                 "nodeType": "UserDefinedTypeName",
-                "referencedDeclaration": 138,
-                "src": "111:20:4",
+                "referencedDeclaration": 81,
+                "src": "115:20:3",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_contract$_OwnableDelegateProxy_$138",
+                  "typeIdentifier": "t_contract$_OwnableDelegateProxy_$81",
                   "typeString": "contract OwnableDelegateProxy"
                 }
               }
@@ -120,118 +121,132 @@
             "visibility": "public"
           }
         ],
-        "scope": 147,
-        "src": "63:87:4"
+        "scope": 90,
+        "src": "66:89:3"
       }
     ],
-    "src": "0:150:4"
+    "src": "0:155:3"
   },
   "legacyAST": {
-    "absolutePath": "/Users/fboyd/Documents/projects/cryptotickets/backend/contracts/ProxyRegistry.sol",
-    "exportedSymbols": {
-      "ProxyRegistry": [
-        146
-      ]
+    "attributes": {
+      "absolutePath": "/D/cryptotickets/backend/contracts/ProxyRegistry.sol",
+      "exportedSymbols": {
+        "ProxyRegistry": [
+          89
+        ]
+      }
     },
-    "id": 147,
-    "nodeType": "SourceUnit",
-    "nodes": [
+    "children": [
       {
-        "id": 140,
-        "literals": [
-          "solidity",
-          "^",
-          "0.4",
-          ".24"
-        ],
-        "nodeType": "PragmaDirective",
-        "src": "0:24:4"
+        "attributes": {
+          "literals": [
+            "solidity",
+            "^",
+            "0.4",
+            ".24"
+          ]
+        },
+        "id": 83,
+        "name": "PragmaDirective",
+        "src": "0:24:3"
       },
       {
-        "absolutePath": "/Users/fboyd/Documents/projects/cryptotickets/backend/contracts/OwnableDelegateProxy.sol",
-        "file": "./OwnableDelegateProxy.sol",
-        "id": 141,
-        "nodeType": "ImportDirective",
-        "scope": 147,
-        "sourceUnit": 139,
-        "src": "25:36:4",
-        "symbolAliases": [],
-        "unitAlias": ""
+        "attributes": {
+          "SourceUnit": 82,
+          "absolutePath": "/D/cryptotickets/backend/contracts/OwnableDelegateProxy.sol",
+          "file": "./OwnableDelegateProxy.sol",
+          "scope": 90,
+          "symbolAliases": [
+            null
+          ],
+          "unitAlias": ""
+        },
+        "id": 84,
+        "name": "ImportDirective",
+        "src": "26:36:3"
       },
       {
-        "baseContracts": [],
-        "contractDependencies": [],
-        "contractKind": "contract",
-        "documentation": null,
-        "fullyImplemented": true,
-        "id": 146,
-        "linearizedBaseContracts": [
-          146
-        ],
-        "name": "ProxyRegistry",
-        "nodeType": "ContractDefinition",
-        "nodes": [
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "contract",
+          "documentation": null,
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            89
+          ],
+          "name": "ProxyRegistry",
+          "scope": 90
+        },
+        "children": [
           {
-            "constant": false,
-            "id": 145,
-            "name": "proxies",
-            "nodeType": "VariableDeclaration",
-            "scope": 146,
-            "src": "92:55:4",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_address_$_t_contract$_OwnableDelegateProxy_$138_$",
-              "typeString": "mapping(address => contract OwnableDelegateProxy)"
+            "attributes": {
+              "constant": false,
+              "name": "proxies",
+              "scope": 89,
+              "stateVariable": true,
+              "storageLocation": "default",
+              "type": "mapping(address => contract OwnableDelegateProxy)",
+              "value": null,
+              "visibility": "public"
             },
-            "typeName": {
-              "id": 144,
-              "keyType": {
-                "id": 142,
-                "name": "address",
-                "nodeType": "ElementaryTypeName",
-                "src": "100:7:4",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_address",
-                  "typeString": "address"
-                }
-              },
-              "nodeType": "Mapping",
-              "src": "92:40:4",
-              "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_address_$_t_contract$_OwnableDelegateProxy_$138_$",
-                "typeString": "mapping(address => contract OwnableDelegateProxy)"
-              },
-              "valueType": {
-                "contractScope": null,
-                "id": 143,
-                "name": "OwnableDelegateProxy",
-                "nodeType": "UserDefinedTypeName",
-                "referencedDeclaration": 138,
-                "src": "111:20:4",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_contract$_OwnableDelegateProxy_$138",
-                  "typeString": "contract OwnableDelegateProxy"
-                }
+            "children": [
+              {
+                "attributes": {
+                  "type": "mapping(address => contract OwnableDelegateProxy)"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "address",
+                      "type": "address"
+                    },
+                    "id": 85,
+                    "name": "ElementaryTypeName",
+                    "src": "104:7:3"
+                  },
+                  {
+                    "attributes": {
+                      "contractScope": null,
+                      "name": "OwnableDelegateProxy",
+                      "referencedDeclaration": 81,
+                      "type": "contract OwnableDelegateProxy"
+                    },
+                    "id": 86,
+                    "name": "UserDefinedTypeName",
+                    "src": "115:20:3"
+                  }
+                ],
+                "id": 87,
+                "name": "Mapping",
+                "src": "96:40:3"
               }
-            },
-            "value": null,
-            "visibility": "public"
+            ],
+            "id": 88,
+            "name": "VariableDeclaration",
+            "src": "96:55:3"
           }
         ],
-        "scope": 147,
-        "src": "63:87:4"
+        "id": 89,
+        "name": "ContractDefinition",
+        "src": "66:89:3"
       }
     ],
-    "src": "0:150:4"
+    "id": 90,
+    "name": "SourceUnit",
+    "src": "0:155:3"
   },
   "compiler": {
     "name": "solc",
     "version": "0.4.24+commit.e67f0147.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "3.0.0",
-  "updatedAt": "2019-01-11T15:19:30.416Z",
+  "schemaVersion": "3.4.1",
+  "updatedAt": "2021-11-28T18:56:58.844Z",
   "devdoc": {
     "methods": {}
   },
